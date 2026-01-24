@@ -11,8 +11,8 @@ services:
     depends_on:
       - db
     environment:
-      - DEBUG=1
-      - DJANGO_SETTINGS_MODULE=config.settings
+      - DEBUG=0
+      # - DJANGO_SETTINGS_MODULE=config.settings
   db:
     image: postgres:16
     container_name: django-db
