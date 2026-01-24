@@ -12,7 +12,11 @@ services:
       - db
     environment:
       - DEBUG=0
-      # - DJANGO_SETTINGS_MODULE=config.settings
+      - DJANGO_SETTINGS_MODULE=config.settings
+      - POSTGRES_DB=appdb
+      - POSTGRES_USER=appuser
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_HOST=db
   db:
     image: postgres:16
     container_name: django-db
