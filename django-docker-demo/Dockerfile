@@ -1,5 +1,5 @@
 # 1. Set the base image
-FROM python:3.12
+FROM python:3.12-slim
 
 # 2 set python envs
 ENV PYTHONUNBUFFERED=1
