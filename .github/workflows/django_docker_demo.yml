@@ -1,0 +1,22 @@
+name: Build and Push Django docker image
+
+on:
+  push:
+    branches:
+      - "**"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+
+      - name: Get folder
+        working-directory: django-docker-demo
+        run: |
+          echo "Current working directory"
+          pwd
+          echo "Folders and files"
+          ls
