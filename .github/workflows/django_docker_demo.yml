@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-  
+
     permissions:
       contents: read
       packages: write
@@ -25,14 +25,17 @@ jobs:
       #     pwd
       #     echo "Folders and files"
       #     ls
+      - name: Set Lowercase Image name
+        id: vars
+        run: echo "IMAGE_NAME=ghcr.io/${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
       - name: login to GHCR
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build image
         working-directory: django-docker-demo
         run: |
-          docker build -t ghcr.io/${{ github.repository }}:${{ github.sha }} .
-      
+          docker build -t $IMAGE_NAME:${{ github.sha }} .
+
       - name: Push image
         run: |
-          docker push ghcr.io/${{ github.repository }}:${{ github.sha }}
+          docker push $IMAGE_NAME:${{ github.sha }}
