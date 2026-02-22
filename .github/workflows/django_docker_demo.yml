@@ -40,6 +40,6 @@ jobs:
           docker build -t $IMAGE_NAME:${{ github.sha }} .
 
       - name: Push image
-        working-directory: django-docker-demo
+        # working-directory: django-docker-demo
         run: |
           docker push $IMAGE_NAME:${{ github.sha }}
