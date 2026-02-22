@@ -9,14 +9,30 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+  
+    permissions:
+      contents: read
+      packages: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v6.0.2
 
-      - name: Get folder
+      # - name: Get folder
+      #   working-directory: django-docker-demo
+      #   run: |
+      #     echo "Current working directory"
+      #     pwd
+      #     echo "Folders and files"
+      #     ls
+      - name: login to GHCR
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build image
         working-directory: django-docker-demo
         run: |
-          echo "Current working directory"
-          pwd
-          echo "Folders and files"
-          ls
+          docker build -t ghcr.io/${{ github.repository }}:${{ github.sha }} .
+      
+      - name: Push image
+        run: |
+          docker push ghcr.io/${{ github.repository }}:${{ github.sha }}
