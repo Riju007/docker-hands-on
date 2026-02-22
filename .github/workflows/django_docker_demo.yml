@@ -27,7 +27,10 @@ jobs:
       #     ls
       - name: Set Lowercase Image name
         id: vars
-        run: echo "IMAGE_NAME=ghcr.io/${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
+        run: |
+          IMAGE_NAME=ghcr.io/${GITHUB_ACTOR,,}/docker-hands-on
+          echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV
+
       - name: login to GHCR
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
@@ -37,5 +40,6 @@ jobs:
           docker build -t $IMAGE_NAME:${{ github.sha }} .
 
       - name: Push image
+        working-directory: django-docker-demo
         run: |
           docker push $IMAGE_NAME:${{ github.sha }}
