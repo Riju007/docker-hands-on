@@ -12,9 +12,14 @@ async fn info() -> String {
 
 #[tokio::main]
 async fn main() {
+    // initialize tracing
+    tracing_subscriber::fmt::init();
+
     let app = Router::new()
         .route("/health", get(health))
-        .route("info", get(info));
+        .route("/info", get(info));
 
-    axum::Server::bind(&"")
+    // run our app with hyper, listening globally on port 3000
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:4000").await.unwrap();
+    axum::serve(listener, app).await.unwrap();
 }
