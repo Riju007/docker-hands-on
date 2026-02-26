@@ -13,8 +13,10 @@ def health():
 @app.get("/aggregate")
 async def aggregate():
     async with httpx.AsyncClient() as client:
-        node = await client.get("http://localhost:3000/info")
-        rust = await client.get("http://localhost:4000/info")
+        # node = await client.get("http://localhost:3000/info")
+        # rust = await client.get("http://localhost:4000/info")
+        node = await client.get("http://node:3000/info")
+        rust = await client.get("http://rust:4000/info")
 
     payload = {
         "python": "Running",

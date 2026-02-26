@@ -1,0 +1,22 @@
+services:
+  python:
+    container_name: "python"
+    build:
+      context: ./python-api
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+  node:
+    container_name: "node"
+    build:
+      context: ./node-api
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+  rust:
+    container_name: "rust"
+    build:
+      context: ./rust-api
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
