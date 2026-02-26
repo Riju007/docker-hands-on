@@ -10,6 +10,8 @@ ENV PYTHONUNBUFFERED=1
 # set default log level
 ENV LOG_LEVEL=INFO
 
+RUN apt-get -y update && apt-get install -y curl
+
 WORKDIR /app
 
 COPY requirements.txt /app/requirements.txt
