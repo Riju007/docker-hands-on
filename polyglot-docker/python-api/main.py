@@ -1,11 +1,29 @@
-from fastapi import FastAPI
+import json
 import httpx
+import logging
+from fastapi import FastAPI
+from datetime import datetime, UTC
+
+logger = logging.getLogger("python-service")
+logging.basicConfig(level=logging.INFO)
 
 app = FastAPI(debug=True, title="Polyglot FAST API APP")
 
 
+def log_json(level, message, **kwargs):
+    log_entry = {
+        "service": "python",
+        "level": level,
+        "message": message,
+        "timestamp": datetime.now(UTC).isoformat(),
+        **kwargs,
+    }
+    print(json.dumps(log_entry))
+
+
 @app.get("/health")
 def health():
+    log_json("info", "Health check called")
     data = {"service": "python", "status": "ok"}
     return data
 
