@@ -2,7 +2,13 @@ use axum::{Router, routing::get};
 use serde_json::json;
 
 async fn health() -> String {
+    println!("{}", serde_json::json!({
+        "service": "rust",
+        "level": "info",
+        "message": "health check called"
+    }));
     json!({"service": "rust", "status": "ok"}).to_string()
+    
 }
 
 async fn info() -> String {
