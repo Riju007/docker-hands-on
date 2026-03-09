@@ -1,0 +1,23 @@
+services:
+  good-api:
+    container_name: good-api
+    build:
+      context: ./services/api-good
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
+  crash-api:
+    container_name: crash-api
+    build:
+      context: ./services/api-crash
+      dockerfile: Dockerfile
+  memory-api:
+    container_name: memory-api
+    build:
+      context: ./services/api-memory
+      dockerfile: Dockerfile
+  network:
+    container_name: network-api
+    build:
+      context: ./services/api-network
+      dockerfile: Dockerfile
