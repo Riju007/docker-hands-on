@@ -11,6 +11,7 @@ services:
     build:
       context: ./services/api-crash
       dockerfile: Dockerfile
+    restart: always
   memory-api:
     container_name: memory-api
     build:
